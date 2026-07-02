@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상품 상세 | 과원가</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+
+<style>
+
+/* =========================
+   PREMIUM DETAIL STRUCTURE
+   ========================= */
+
+.detail-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 콘텐츠 */
+.detail-content {
+  max-width: 900px;
+  margin: auto;
+  padding: 80px 24px 140px; /* 하단 고정바 공간 확보 */
+}
+
+.detail-title {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.detail-sub {
+  color: var(--gray);
+  margin-bottom: 30px;
+}
+
+.detail-section {
+  margin-bottom: 60px;
+}
+
+.detail-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.detail-info-box {
+  background: var(--bg);
+  padding: 28px;
+  border-radius: var(--radius);
+}
+
+.detail-info-box div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+/* =========================
+   하단 고정 구매바
+   ========================= */
+
+.purchase-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -8px 30px rgba(0,0,0,0.06);
+  padding: 16px 24px;
+  z-index: 999;
+}
+
+.purchase-inner {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.purchase-price {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--red);
+}
+
+.purchase-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.purchase-actions button {
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+  .purchase-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .purchase-actions {
+    width: 100%;
+  }
+
+  .purchase-actions button {
+    flex: 1;
+  }
+}
+
+</style>
+
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo.png" alt="과원가 로고">
+    </a>
+  </div>
+</header>
+
+<!-- ✅ 상단 세로형 이미지 -->
+<section class="detail-hero">
+  <img id="detailImage" src="" alt="">
+</section>
+
+<!-- ✅ 상세 콘텐츠 -->
+<section class="detail-content">
+
+  <h1 class="detail-title" id="detailName"></h1>
+  <p class="detail-sub" id="detailOrigin"></p>
+
+  <div class="detail-section">
+    <h2>상품 설명</h2>
+    <p>
+      과원가는 전국 산지 직계약을 통해
+      신선도와 품질을 최우선으로 관리합니다.
+      당일 수확 → 예냉 → 포장 → 출고까지
+      콜드체인 시스템으로 운영됩니다.
+    </p>
+  </div>
+
+  <div class="detail-section">
+    <h2>상품 정보</h2>
+    <div class="detail-info-box">
+      <div><span>규격</span><strong id="detailSpec"></strong></div>
+      <div><span>재고</span><strong id="detailStock"></strong></div>
+      <div><span>최소주문</span><strong id="detailMin"></strong></div>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h2>배송 안내</h2>
+    <p>
+      오전 11시 이전 주문 시 당일 출고됩니다.
+      계절 상품 특성상 기상 상황에 따라 일정이 변동될 수 있습니다.
+    </p>
+  </div>
+
+</section>
+
+<!-- ✅ 하단 고정 구매바 -->
+<div class="purchase-bar">
+  <div class="purchase-inner">
+
+    <div>
+      <div style="font-size:13px;color:var(--gray);">도매 단가</div>
+      <div class="purchase-price" id="detailPrice"></div>
+    </div>
+
+    <div class="purchase-actions">
+      <button class="btn-outline">장바구니</button>
+      <button class="btn-primary">바로 주문</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+/* ✅ 상품 데이터 */
+const products = [
+  {
+    id: 0,
+    name: "프리미엄 복숭아",
+    origin: "충남 예산 직계약 농가",
+    spec: "10kg",
+    stock: "120박스",
+    min: "2박스",
+    price: 45000,
+    image: "assets/images/3q.png"
+  },
+  {
+    id: 1,
+    name: "고당도 수박",
+    origin: "전남 해남 직송",
+    spec: "특 1통",
+    stock: "80박스",
+    min: "5박스",
+    price: 12000,
+    image: "assets/images/1q.png"
+  }
+];
+
+const params = new URLSearchParams(location.search);
+const id = parseInt(params.get("id"));
+const product = products.find(p => p.id === id);
+
+if (product) {
+  document.getElementById("detailImage").src = product.image;
+  document.getElementById("detailName").textContent = product.name;
+  document.getElementById("detailOrigin").textContent = product.origin;
+  document.getElementById("detailSpec").textContent = product.spec;
+  document.getElementById("detailStock").textContent = product.stock;
+  document.getElementById("detailMin").textContent = product.min;
+  document.getElementById("detailPrice").textContent =
+    product.price.toLocaleString() + "원 (VAT별도)";
+}
+
+</script>
+
+</body>
+</html>

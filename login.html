@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사업자 로그인 | FRESHFARM WHOLESALE</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+
+
+<body>
+
+
+<div class="auth-page">
+  <div class="auth-container">
+    <div class="auth-logo">
+      <a href="index.html">FRESHFARM</a>
+    </div>
+    <h1>사업자 로그인</h1>
+    <p class="auth-sub">도매가를 확인하려면 사업자 가입 후 승인 완료가 필요합니다.</p>
+
+    <div class="auth-form">
+      <input type="email" id="email" placeholder="이메일 주소">
+      <input type="password" id="password" placeholder="비밀번호">
+      <button class="btn-primary lg full" onclick="login()">로그인</button>
+    </div>
+
+    <div class="auth-footer">
+      <p>아직 사업자 가입을 안 하셨나요? <a href="register.html">사업자 가입하기 →</a></p>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/auth.js"></script>
+
+    <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+/* ✅ 여기에 복사한 앱키 붙여넣기 */
+const firebaseConfig = {
+  apiKey: "AIzaSyDOc32CqDaBEg4dmcdbVMRpFFruAELeLsA",
+  authDomain: "hihi-fbaf0.firebaseapp.com",
+  projectId: "hihi-fbaf0",
+  storageBucket: "hihi-fbaf0.firebasestorage.app",
+  messagingSenderId: "163435184744",
+  appId: "1:163435184744:web:02823b1dcd155605fa71dd",
+  measurementId: "G-8S9TJ2NEGX"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+window.login = async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+
+    if (!userDoc.exists()) {
+      alert("회원 정보가 없습니다.");
+      return;
+    }
+
+    const role = userDoc.data().role;
+
+    if (role === "approved") {
+      localStorage.setItem("bizApproved", "true");
+      alert("로그인 성공!");
+      location.href = "business.html";
+    } else {
+      alert("아직 관리자 승인이 완료되지 않았습니다.");
+    }
+
+  } catch (error) {
+    alert("로그인 실패: " + error.message);
+  }
+};
+</script>
+
+</body>
+</html>

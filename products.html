@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>상품안내 | GWAWONGA</title>
+<link rel="stylesheet" href="css/style.css">
+<link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+  <img src="assets/images/logo.png" alt="과원가 로고">
+</a>
+    <nav class="nav-links">
+      <a href="products.html?tab=all">올시즌</a>
+      <a href="products.html?tab=season">계절과일</a>
+      <a href="products.html?tab=soldout">Sold Out</a>
+      <a href="about.html">산지소개</a>
+      <a href="apply.html">사업자 승인 신청</a>
+    </nav>
+    
+    <!-- ✅ 여기 비워둡니다 -->
+    <div class="nav-right" >
+    </div>
+
+  
+  <!-- ✅ 오버레이 -->
+<div class="menu-overlay" id="menuOverlay"></div>
+ 
+
+    <!-- ✅ 햄버거 버튼 -->
+    <button class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+   
+</header>
+
+<!-- 페이지 타이틀 -->
+<section class="page-title">
+  <div class="container">
+    <h1 id="pageTitle">올시즌 상품</h1>
+    <p>산지 직송 신선 과일 도매</p>
+  </div>
+</section>
+
+<!-- 필터 탭 -->
+<section class="filter-section">
+  <div class="container">
+    <div class="filter-tabs">
+      <button class="tab-btn" data-tab="all">올시즌</button>
+      <button class="tab-btn" data-tab="season">계절과일</button>
+      <button class="tab-btn" data-tab="soldout">Sold Out</button>
+    </div>
+  </div>
+</section>
+
+<!-- 상품 그리드 -->
+<section style="padding:60px 0;">
+  <div class="container">
+    <div class="product-full-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- 주문 안내 -->
+<section style="padding:0 0 80px;">
+  <div class="container">
+    <div class="order-info-box">
+      <h3>주문 안내</h3>
+      <ul>
+        <li>📦 최소 주문 수량은 상품마다 다릅니다.</li>
+        <li>🚚 오전 11시까지 주문 시 당일 출고</li>
+        <li>💳 무통장입금 / 계좌이체만 지원</li>
+        <li>🏭 박스 단위 주문만 가능합니다.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <h3>과원가 GWAWONGA</h3>
+      <p>산지 직송 프리미엄 과일 도매 플랫폼</p>
+      <p class="footer-biz">
+        사업자등록번호: 123-45-67890<br>
+        농협 123-456-789012 (예금주: 과원가)
+      </p>
+    </div>
+    <div class="footer-links">
+      <a href="about.html">산지소개</a>
+      <a href="products.html">상품안내</a>
+       
+    </div>
+    <div class="footer-icons">
+      <a href="#" title="전화"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="전화"></a>
+      <a href="#" title="카카오톡"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111498.png" alt="카카오"></a>
+      <a href="#" title="인스타그램"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="인스타"></a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <p>© 2026 GWAWONGA All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+
+<script>
+
+/* ✅ 상품 데이터 (이미지 배열로 변경) */
+const products = [
+  {
+    name: "프리미엄 복숭아",
+    price: 45000,
+    spec: "10kg",
+    origin: "충남 예산",
+    stock: 120,
+    min: 2,
+    season: true,
+    soldout: false,
+    images: [
+      "/assets/images/3q.png",
+      "/assets/images/2q.png"
+    ]
+  },
+  {
+    name: "고당도 수박",
+    price: 12000,
+    spec: "특 1통",
+    origin: "전남 해남",
+    stock: 80,
+    min: 5,
+    season: true,
+    soldout: false,
+    images: [
+      "/assets/images/1q.png",
+      "/assets/images/4q.png"
+    ]
+  },
+  {
+    name: "꿀 참외",
+    price: 28000,
+    spec: "5kg",
+    origin: "경남 밀양",
+    stock: 60,
+    min: 3,
+    season: true,
+    soldout: false,
+    images: [
+      "/assets/images/2q.png",
+      "/assets/images/5q.png"
+    ]
+  }
+];
+
+const isBizApproved = localStorage.getItem("bizApproved") === "true";
+const grid = document.getElementById("productGrid");
+const pageTitle = document.getElementById("pageTitle");
+const tabBtns = document.querySelectorAll(".tab-btn");
+
+function renderProducts(tab) {
+
+  let filtered = [];
+
+  if (tab === "all") {
+    filtered = products.filter(p => !p.soldout);
+    pageTitle.textContent = "올시즌 상품";
+  }
+  if (tab === "season") {
+    filtered = products.filter(p => p.season && !p.soldout);
+    pageTitle.textContent = "계절과일";
+  }
+  if (tab === "soldout") {
+    filtered = products.filter(p => p.soldout);
+    pageTitle.textContent = "Sold Out";
+  }
+
+  tabBtns.forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.tab === tab);
+  });
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div style="padding:80px 0;text-align:center;">상품이 없습니다.</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((p, index) => `
+    <div class="product-card">
+
+      <!-- ✅ 이미지 슬라이더 -->
+      <div class="slider" data-index="${index}">
+        ${p.images.map((img, i) => `
+          <div class="slide ${i===0?'active':''}">
+            <img src="${img}" alt="${p.name}">
+          </div>
+        `).join('')}
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+
+      <!-- ✅ 텍스트 영역 -->
+      <div class="product-content">
+        <div class="product-title">${p.name}</div>
+        <div class="product-origin">${p.origin} · ${p.spec}</div>
+
+        ${p.soldout
+          ? `<div class="product-price locked">품절</div>`
+          : isBizApproved
+            ? `<div class="product-price">${p.price.toLocaleString()}원</div>`
+            : `<div class="product-price locked">🔒 사업자 로그인 후 확인</div>`
+        }
+
+        <div class="product-meta">
+          <span>${p.stock}박스</span>
+          <span>최소 ${p.min}박스~</span>
+        </div>
+      </div>
+
+    </div>
+  `).join('');
+
+  initSliders();
+}
+
+/* ✅ 슬라이더 기능 (모바일 터치 포함) */
+function initSliders() {
+  document.querySelectorAll(".slider").forEach(slider => {
+
+    const slides = slider.querySelectorAll(".slide");
+    let current = 0;
+
+    const show = (i) => {
+      slides.forEach(s => s.classList.remove("active"));
+      slides[i].classList.add("active");
+    };
+
+    slider.querySelector(".next").onclick = () => {
+      current = (current + 1) % slides.length;
+      show(current);
+    };
+
+    slider.querySelector(".prev").onclick = () => {
+      current = (current - 1 + slides.length) % slides.length;
+      show(current);
+    };
+
+    /* ✅ 모바일 터치 */
+    let startX = 0;
+    slider.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+    });
+
+    slider.addEventListener("touchend", e => {
+      let endX = e.changedTouches[0].clientX;
+      if (endX - startX > 50) {
+        current = (current - 1 + slides.length) % slides.length;
+      } else if (startX - endX > 50) {
+        current = (current + 1) % slides.length;
+      }
+      show(current);
+    });
+
+  });
+}
+
+tabBtns.forEach(btn => {
+  btn.onclick = () => {
+    const tab = btn.dataset.tab;
+    history.pushState(null, "", `?tab=${tab}`);
+    renderProducts(tab);
+  };
+});
+
+const params = new URLSearchParams(window.location.search);
+renderProducts(params.get("tab") || "all");
+
+</script>
+
+
+
+
+</body>
+</html>

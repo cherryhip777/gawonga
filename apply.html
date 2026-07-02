@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사업자 승인 신청 | GWAWONGA</title>
+<link rel="stylesheet" href="css/style.css">
+<link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+
+
+
+
+
+
+
+<style>
+  .apply-container {
+    max-width: 560px;
+    margin: 60px auto;
+    padding: 40px 36px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .section-title {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #1a352c;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .section-sub {
+    text-align: center;
+    color: #555;
+    font-size: 1.05rem;
+    margin-bottom: 40px;
+  }
+
+  .biz-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #222;
+    margin-bottom: 8px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 14px 16px;
+    font-size: 1.05rem;
+    border: 1.5px solid #ddd;
+    border-radius: 12px;
+    transition: all 0.3s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #2c5f4a;
+    box-shadow: 0 0 0 4px rgba(44, 95, 74, 0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .btn-primary {
+    margin-top: 16px;
+    padding: 16px 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: #1e3a2f;
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: #2c5f4a;
+    transform: translateY(-2px);
+  }
+
+  /* 헤더와 푸터는 기존 스타일과 잘 맞도록 약간 조정 */
+  .header {
+    border-bottom: 1px solid #eee;
+  }
+
+  @media (max-width: 640px) {
+    .apply-container {
+      margin: 0px 15px;
+      padding: 20px 24px;
+    }
+    .section-title {
+      font-size: 1.85rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo.png" alt="과원가 로고">
+    </a>
+
+    <nav class="nav-links">
+      <a href="products.html">올시즌</a>
+      <a href="products.html?tab=season">계절과일</a>
+      <a href="products.html?tab=soldout">Sold Out</a>
+      <a href="about.html">산지소개</a>
+      <a href="apply.html">사업자 승인 신청</a>
+    </nav>
+
+   <!-- ✅ 여기 비워둡니다 -->
+    <div class="nav-right" >
+    </div>
+
+  
+  <!-- ✅ 오버레이 -->
+<div class="menu-overlay" id="menuOverlay"></div>
+ 
+
+    <!-- ✅ 햄버거 버튼 -->
+    <button class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+</header>
+
+<section class="section-wrap">
+  <div class="apply-container">
+
+    <div class="section-head">
+      <h2 class="section-title">사업자 승인 신청</h2>
+      <p class="section-sub">
+        신청 후 담당자가 확인 후 연락드립니다.
+      </p>
+    </div>
+
+    <form action="https://formspree.io/f/여기에코드입력" method="POST" class="biz-form">
+      <input type="hidden" name="_subject" value="과원가 사업자 승인 신청">
+
+      <div class="form-group">
+        <label>상호명</label>
+        <input type="text" name="company" required placeholder="예) 과원가 농수산">
+      </div>
+
+      <div class="form-group">
+        <label>사업자등록번호</label>
+        <input type="text" name="biz_number" required placeholder="000-00-00000">
+      </div>
+
+      <div class="form-group">
+        <label>대표자명</label>
+        <input type="text" name="owner" required placeholder="홍길동">
+      </div>
+
+      <div class="form-group">
+        <label>연락처</label>
+        <input type="tel" name="phone" required placeholder="010-1234-5678">
+      </div>
+
+      <div class="form-group">
+        <label>이메일</label>
+        <input type="email" name="email" required placeholder="example@naver.com">
+      </div>
+
+      <div class="form-group">
+        <label>요청사항</label>
+        <textarea name="message" rows="5" placeholder="도매 희망 수량, 주로 원하는 품목, 기타 문의사항 등을 적어주세요."></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary full">신청하기</button>
+    </form>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <h3>과원가 GWAWONGA</h3>
+      <p>산지 직송 프리미엄 과일 도매 플랫폼</p>
+      <p class="footer-biz">
+        사업자등록번호: 123-45-67890<br>
+        농협 123-456-789012 (예금주: 과원가)
+      </p>
+    </div>
+    <div class="footer-links">
+      <a href="about.html">산지소개</a>
+      <a href="products.html">상품안내</a>
+    </div>
+    <div class="footer-icons">
+      <a href="#" title="전화"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="전화"></a>
+      <a href="#" title="카카오톡"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111498.png" alt="카카오"></a>
+      <a href="#" title="인스타그램"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="인스타"></a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <p>© 2026 GWAWONGA All rights reserved.</p>
+  </div>
+</footer>
+
+
+<script src="js/script.js"></script>
+
+
+
+</body>
+</html>

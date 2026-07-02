@@ -1,0 +1,167 @@
+ <!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사업자 전용 | FRESHFARM</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ✅ 기존 헤더 건드리지 않음 -->
+<header class="header">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+  <img src="assets/images/logo.png" alt="과원가 로고">
+</a>
+    <nav class="nav-links">
+      <a href="products.html">올시즌</a>
+      <a href="products.html?tab=season">계절과일</a>
+      <a href="products.html?tab=soldout">Sold Out</a>
+      <a href="about.html" class="active">산지소개</a>
+    </nav>
+    <div class="nav-right">
+      <a href="business.html" class="biz-btn">사업자 전용</a>
+      <a href="cart.html" class="cart-icon">🛒</a>
+    </div>
+  </div>
+</header>
+
+
+<section style="padding:100px 20px; min-height:70vh;">
+  <div class="container">
+
+    <!-- ✅ 로그인 필요 -->
+    <div id="notLoggedIn" style="text-align:center;">
+      <h2 style="font-size:28px;margin-bottom:15px;">사업자 전용 페이지입니다</h2>
+      <p style="color:#666;margin-bottom:25px;">
+        도매 단가 확인 및 주문은 사업자 로그인 후 가능합니다.
+      </p>
+
+      <a href="login.html" class="btn-primary">로그인</a>
+      <a href="register.html" class="btn-outline" style="margin-left:10px;">
+        사업자 가입
+      </a>
+    </div>
+
+    <!-- ✅ 승인 대기 -->
+    <div id="pendingBox" style="display:none;text-align:center;">
+      <h2 style="font-size:26px;margin-bottom:15px;">승인 대기 중입니다</h2>
+      <p style="color:#666;">
+        관리자 승인 후 도매가 확인이 가능합니다.<br>
+        평균 처리 시간 : 1~2시간
+      </p>
+    </div>
+
+    <!-- ✅ 승인 완료 -->
+    <div id="approvedBox" style="display:none;">
+
+      <h1 style="margin-bottom:10px;">도매 단가표</h1>
+      <p style="color:#666;margin-bottom:30px;">
+        VAT별도 · 박스 단위 주문
+      </p>
+
+      <div style="background:white;border:1px solid #eee;border-radius:12px;overflow:hidden;">
+
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+                    background:#111;color:white;padding:15px;font-size:14px;">
+          <div>품목</div>
+          <div>규격</div>
+          <div>도매단가</div>
+          <div>재고</div>
+          <div>최소주문</div>
+        </div>
+
+        <div id="priceRows"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- ✅ Firebase 직접 로드 (안전 방식) -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+/* 🔥 당신 firebase 키 입력 */
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const notLoggedIn = document.getElementById("notLoggedIn");
+const pendingBox = document.getElementById("pendingBox");
+const approvedBox = document.getElementById("approvedBox");
+const priceRows = document.getElementById("priceRows");
+
+/* ✅ 도매 상품 샘플 데이터 */
+const products = [
+  { name:"프리미엄 복숭아", spec:"10kg", price:45000, stock:120, min:2 },
+  { name:"고당도 수박", spec:"특 1통", price:12000, stock:80, min:5 },
+  { name:"꿀 참외", spec:"5kg", price:28000, stock:60, min:3 },
+  { name:"청포도", spec:"5kg", price:55000, stock:30, min:3 }
+];
+
+function renderPrices() {
+  priceRows.innerHTML = products.map(p => `
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+                padding:15px;border-bottom:1px solid #eee;font-size:14px;">
+      <div>${p.name}</div>
+      <div>${p.spec}</div>
+      <div style="font-weight:600;color:#C41E3A;">
+        ${p.price.toLocaleString()}원
+      </div>
+      <div>${p.stock}박스</div>
+      <div>${p.min}박스~</div>
+    </div>
+  `).join("");
+}
+
+/* ✅ 로그인 상태 확인 */
+onAuthStateChanged(auth, async (user) => {
+
+  if (!user) {
+    notLoggedIn.style.display = "block";
+    return;
+  }
+
+  const snap = await getDoc(doc(db, "users", user.uid));
+
+  if (!snap.exists()) {
+    notLoggedIn.style.display = "block";
+    return;
+  }
+
+  const role = snap.data().role;
+
+  if (role === "pending") {
+    notLoggedIn.style.display = "none";
+    pendingBox.style.display = "block";
+  }
+
+  if (role === "approved") {
+    notLoggedIn.style.display = "none";
+    approvedBox.style.display = "block";
+    renderPrices();
+  }
+
+});
+
+</script>
+
+</body>
+</html>

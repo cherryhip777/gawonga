@@ -1,0 +1,238 @@
+ 
+
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>과원가 도매 단가표</title>
+
+<link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+
+<style>
+
+/* =========================
+   기본 설정
+========================= */
+body {
+  margin: 0;
+  font-family: "Pretendard", sans-serif;
+  background: #F6F4EF;
+  color: #1B1B1B;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 80px 24px;
+}
+
+/* =========================
+   워터마크
+========================= */
+body::before {
+  content: "과원가 도매 전용";
+  position: fixed;
+  font-size: 100px;
+  font-weight: 800;
+  color: rgba(0,0,0,0.03);
+  transform: rotate(-25deg);
+  top: 30%;
+  left: 10%;
+  pointer-events: none;
+}
+
+/* =========================
+   제목
+========================= */
+h1 {
+  font-size: 34px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #6B6B6B;
+  margin-bottom: 50px;
+}
+
+/* =========================
+   가격 테이블
+========================= */
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+}
+
+.price-table th {
+  background: #1F4E3D;
+  color: white;
+  padding: 18px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.price-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid #E6E3DD;
+}
+
+.price-table tr:last-child td {
+  border-bottom: none;
+}
+
+.price {
+  font-weight: 700;
+  color: #1F4E3D;
+}
+
+/* =========================
+   모바일
+========================= */
+@media (max-width: 768px) {
+  .container {
+    padding: 60px 16px;
+  }
+  body::before {
+    font-size: 60px;
+  }
+  .price-table th, .price-table td {
+    font-size: 14px;
+  }
+}
+
+/* =========================
+   비밀번호 모달
+========================= */
+#passwordOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.password-box {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  width: 320px;
+  text-align: center;
+}
+
+.password-box h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.password-box input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+
+.password-box button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 30px;
+  border: none;
+  background: #1F4E3D;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.password-error {
+  color: red;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ✅ 비밀번호 보호 -->
+<div id="passwordOverlay">
+  <div class="password-box">
+    <h2>도매 단가 열람</h2>
+    <input type="password" id="passwordInput" placeholder="비밀번호 입력">
+    <button onclick="checkPassword()">확인</button>
+    <div id="passwordError" class="password-error"></div>
+  </div>
+</div>
+
+<div class="container" id="content" style="display:none;">
+
+  <h1>과원가 도매 단가표</h1>
+  <div class="subtitle">본 페이지는 승인된 사업자 전용입니다.</div>
+
+  <table class="price-table">
+    <tr>
+      <th>품목</th>
+      <th>규격</th>
+      <th>도매 단가</th>
+      <th>최소 주문</th>
+    </tr>
+
+    <tr>
+      <td>프리미엄 복숭아</td>
+      <td>10kg</td>
+      <td class="price">45,000원</td>
+      <td>2박스~</td>
+    </tr>
+
+    <tr>
+      <td>고당도 수박</td>
+      <td>특 1통</td>
+      <td class="price">12,000원</td>
+      <td>5통~</td>
+    </tr>
+
+    <tr>
+      <td>꿀 참외</td>
+      <td>5kg</td>
+      <td class="price">28,000원</td>
+      <td>3박스~</td>
+    </tr>
+
+    <tr>
+      <td>청포도</td>
+      <td>5kg</td>
+      <td class="price">55,000원</td>
+      <td>3박스~</td>
+    </tr>
+
+  </table>
+
+</div>
+
+<script>
+
+/* ✅ 비밀번호 설정 */
+const correctPassword = "gawonga77";
+
+function checkPassword() {
+  const input = document.getElementById("passwordInput").value;
+  if (input === correctPassword) {
+    document.getElementById("passwordOverlay").style.display = "none";
+    document.getElementById("content").style.display = "block";
+  } else {
+    document.getElementById("passwordError").textContent = "비밀번호가 올바르지 않습니다.";
+  }
+}
+
+</script>
+
+</body>
+</html>
