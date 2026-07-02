@@ -6,41 +6,221 @@
 <title>과원가 GWAWONGA | 산지 직송 과일 도매</title>
 <link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+
+<!-- ✅ 모바일 레이아웃 완전 수정 (style.css 뒤에 위치해야 우선순위 확보) -->
+<style>
+  /* 1. 가로 스크롤 원천 차단 */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  img { max-width: 100%; height: auto; display: block; }
+
+  /* ============ 모바일 (768px 이하) ============ */
+  @media screen and (max-width: 768px) {
+
+    /* 컨테이너 여백 */
+    .container {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+      margin: 0 auto !important;
+    }
+
+    /* 텍스트 줄바꿈 (한글 자연스럽게) */
+    p, span, li, a, h1, h2, h3, h4 {
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    /* HERO 영역 폰트 축소 */
+    .hero-title {
+      font-size: 2rem !important;
+      line-height: 1.3 !important;
+      word-break: keep-all !important;
+    }
+    .hero-sub {
+      font-size: 0.95rem !important;
+      line-height: 1.6 !important;
+    }
+    .hero-tag { font-size: 0.8rem !important; }
+    .hero-btns {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px !important;
+      width: 100% !important;
+    }
+    .hero-btns a {
+      width: 100% !important;
+      text-align: center !important;
+    }
+
+    /* ⭐ 신뢰 통계 (12년, 48농가 등) - 세로글씨 문제 해결 */
+    .trust-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 15px !important;
+    }
+    .trust-card {
+      width: 100% !important;
+      min-width: 0 !important;
+      padding: 20px 10px !important;
+      text-align: center !important;
+    }
+    .trust-num {
+      display: block !important;
+      font-size: 1.8rem !important;
+      white-space: nowrap !important;   /* 세로글씨 방지 핵심 */
+      word-break: keep-all !important;
+      overflow-wrap: normal !important;
+    }
+    .trust-label {
+      display: block !important;
+      font-size: 0.85rem !important;
+      white-space: normal !important;
+      word-break: keep-all !important;
+      margin-top: 6px !important;
+    }
+
+    /* 거래 방법 카드 - 가로글씨 유지 */
+    .process-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 16px !important;
+    }
+    .process-card {
+      width: 100% !important;
+      padding: 24px !important;
+    }
+    .process-num {
+      font-size: 2.5rem !important;
+      white-space: nowrap !important;
+    }
+    .process-card h3 {
+      font-size: 1.25rem !important;
+      white-space: nowrap !important;
+    }
+    .process-card p {
+      font-size: 0.95rem !important;
+      line-height: 1.6 !important;
+    }
+
+    /* 가격표 - 가로 스크롤 */
+    .price-table {
+      overflow-x: auto !important;
+      display: block !important;
+      width: 100% !important;
+      -webkit-overflow-scrolling: touch;
+    }
+    .price-row {
+      min-width: 500px;
+    }
+
+    /* ⭐ 물류 섹션 - 이미지 세로형 최적화 */
+    .logistics-flex {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 24px !important;
+      align-items: stretch !important;
+    }
+    .logistics-img {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+    }
+    .logistics-img img {
+      width: 100% !important;
+      height: 240px !important;         /* 세로 사이즈 고정 */
+      object-fit: cover !important;
+      border-radius: 16px !important;
+      display: block !important;
+    }
+    .logistics-text {
+      width: 100% !important;
+    }
+    .logistics-text h2 {
+      font-size: 1.8rem !important;
+      line-height: 1.3 !important;
+      word-break: keep-all !important;
+    }
+    .logistics-text p {
+      font-size: 0.95rem !important;
+      line-height: 1.7 !important;
+    }
+    .section-tag {
+      font-size: 0.8rem !important;
+      white-space: nowrap !important;
+    }
+    .logistics-list li {
+      font-size: 0.95rem !important;
+      word-break: keep-all !important;
+    }
+
+    /* 섹션 제목 */
+    .section-title {
+      font-size: 1.6rem !important;
+      word-break: keep-all !important;
+    }
+    .section-sub {
+      font-size: 0.9rem !important;
+    }
+
+    /* 푸터 세로 정렬 */
+    .footer-inner {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 24px !important;
+      align-items: flex-start !important;
+      text-align: left !important;
+    }
+    .footer-brand h3 {
+      font-size: 1.2rem !important;
+    }
+    .footer-links {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 16px !important;
+    }
+    .footer-icons {
+      display: flex !important;
+      gap: 16px !important;
+    }
+  }
+
+  /* ============ 아주 작은 화면 (400px 이하) ============ */
+  @media screen and (max-width: 400px) {
+    .hero-title { font-size: 1.7rem !important; }
+    .trust-num { font-size: 1.5rem !important; }
+    .logistics-text h2 { font-size: 1.5rem !important; }
+    .section-title { font-size: 1.4rem !important; }
+  }
+</style>
 </head>
 <body>
 
 <header class="header">
   <div class="container nav-inner">
-
     <a href="index.html" class="logo">
       <img src="assets/images/logo.png" alt="과원가 로고">
     </a>
-
-<!-- ✅ 오버레이 -->
-<div class="menu-overlay" id="menuOverlay"></div>
- 
-
-
-    <!-- ✅ 기본 메뉴 (PC용) -->
+    <div class="menu-overlay" id="menuOverlay"></div>
     <nav class="nav-links">
       <a href="products.html">상품안내</a>
       <a href="about.html">산지소개</a>
       <a href="apply.html">사업자 승인 신청</a>
     </nav>
-
-    <!-- ✅ 햄버거 버튼 -->
     <button class="menu-toggle" id="menuToggle">
       <span></span>
       <span></span>
       <span></span>
     </button>
-
   </div>
 </header>
-
- 
-
- 
 
 <!-- HERO SECTION -->
 <section class="hero">
@@ -82,10 +262,6 @@
     </div>
   </div>
 </section>
-
-
-  
-
 
 <!-- HOW IT WORKS -->
 <section class="process-section">
@@ -178,7 +354,6 @@
   </div>
 </section>
 
- 
 <!-- FOOTER -->
 <footer class="footer">
   <div class="container footer-inner">
@@ -193,19 +368,17 @@
     <div class="footer-links">
       <a href="about.html">산지소개</a>
       <a href="products.html">상품안내</a>
-       
     </div>
     <div class="footer-icons">
-      <a href="#" title="전화"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="전화"></a>
-      <a href="#" title="카카오톡"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111498.png" alt="카카오"></a>
-      <a href="#" title="인스타그램"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="인스타"></a>
+      <a href="#" title="전화"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="전화" style="width: 24px;"></a>
+      <a href="#" title="카카오톡"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111498.png" alt="카카오" style="width: 24px;"></a>
+      <a href="#" title="인스타그램"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="인스타" style="width: 24px;"></a>
     </div>
   </div>
   <div class="footer-copy">
     <p>© 2026 GWAWONGA All rights reserved.</p>
   </div>
 </footer>
-
 
 <script type="module" src="js/products.js"></script>
 <script src="js/script.js"></script>
