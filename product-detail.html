@@ -9,7 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 
 <style>
-  html, body { overflow-x: hidden; max-width: 100vw; }
+  html, body { overflow-x: hidden; max-width: 100vw; margin: 0; padding: 0; }
   *, *::before, *::after { box-sizing: border-box; }
 
   /* 상세 이미지 */
@@ -148,7 +148,6 @@
     justify-content: center;
     padding: 20px;
     cursor: zoom-out;
-    animation: fadeIn 0.25s ease;
   }
 
   .lightbox.active { display: flex; }
@@ -158,7 +157,6 @@
     max-height: 90vh;
     object-fit: contain;
     border-radius: 8px;
-    animation: zoomIn 0.3s ease;
   }
 
   .lightbox-close {
@@ -174,9 +172,6 @@
     font-size: 24px;
     cursor: pointer;
   }
-
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
   /* ============ 햄버거 메뉴 ============ */
   .menu-toggle {
@@ -216,16 +211,15 @@
   /* ============ 모바일 (768px 이하) ============ */
   @media (max-width: 768px) {
     .detail-hero { padding: 0 16px; margin-top: 24px; }
-    /* ✅ 하단 바 없으니 padding-bottom 줄임 */
-    .detail-content { padding: 30px 20px 60px; }
+    .detail-content { padding: 30px 20px 60px !important; }
     .detail-title { font-size: 1.6rem; }
     .detail-section h2 { font-size: 1.1rem; }
     .zoom-hint { display: none; }
 
-    /* ✅ 모바일에서 하단 구매바 완전히 숨김 */
+    /* ✅ 모바일에서 하단 구매바 완전히 숨김! */
     .purchase-bar { display: none !important; }
 
-    /* 햄버거 메뉴 */
+    /* ✅ 햄버거 메뉴 보이기 */
     .menu-toggle { display: block !important; }
 
     .nav-links {
@@ -251,6 +245,7 @@
       padding: 10px 0;
       border-bottom: 1px solid #f0f0f0;
       color: #1a1a1a;
+      text-decoration: none;
     }
   }
 </style>
