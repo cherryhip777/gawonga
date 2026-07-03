@@ -6,41 +6,97 @@
 <title>과원가 GWAWONGA | 산지 직송 과일 도매</title>
 <link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+
+<!-- ✅ 모바일 레이아웃 깨짐 및 가로 스크롤 강제 방지 코드 추가 -->
+<style>
+  /* 1. 기본 가로 스크롤 원천 차단 */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* 2. 모든 요소가 화면 밖으로 안 나가게 설정 */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 3. 모바일(스마트폰) 화면일 때 강제 정렬 */
+  @media screen and (max-width: 768px) {
+    /* 텍스트 줄바꿈 자연스럽게 처리 */
+    * {
+      word-break: keep-all; 
+      overflow-wrap: break-word;
+    }
+
+    /* 양옆 여백 고정 */
+    .container {
+      width: 100% !important;
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
+
+    /* 가로로 나열된 카드들을 세로로 변경 */
+    .trust-grid, .process-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 20px !important;
+    }
+
+    /* 물류 섹션과 푸터도 세로로 정렬 */
+    .logistics-flex, .footer-inner {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 30px !important;
+      align-items: flex-start !important;
+    }
+
+    /* 가격표는 표만 따로 스크롤되게 설정 (화면 전체 스크롤 방지) */
+    .price-table {
+      overflow-x: auto !important;
+      display: block;
+      width: 100%;
+      white-space: nowrap;
+    }
+
+    /* 모바일에서 텍스트 크기 최적화 */
+    .hero-title {
+      font-size: 2.2rem !important;
+    }
+  }
+</style>
 </head>
 <body>
 
 <header class="header">
   <div class="container nav-inner">
-
     <a href="index.html" class="logo">
       <img src="assets/images/logo.png" alt="과원가 로고">
     </a>
 
-<!-- ✅ 오버레이 -->
-<div class="menu-overlay" id="menuOverlay"></div>
+    <!-- 오버레이 -->
+    <div class="menu-overlay" id="menuOverlay"></div>
  
-
-
-    <!-- ✅ 기본 메뉴 (PC용) -->
+    <!-- 기본 메뉴 (PC용) -->
     <nav class="nav-links">
       <a href="products.html">상품안내</a>
       <a href="about.html">산지소개</a>
       <a href="apply.html">사업자 승인 신청</a>
     </nav>
 
-    <!-- ✅ 햄버거 버튼 -->
+    <!-- 햄버거 버튼 -->
     <button class="menu-toggle" id="menuToggle">
       <span></span>
       <span></span>
       <span></span>
     </button>
-
   </div>
 </header>
-
- 
-
- 
 
 <!-- HERO SECTION -->
 <section class="hero">
@@ -82,10 +138,6 @@
     </div>
   </div>
 </section>
-
-
-  
-
 
 <!-- HOW IT WORKS -->
 <section class="process-section">
@@ -177,7 +229,6 @@
     </div>
   </div>
 </section>
-
  
 <!-- FOOTER -->
 <footer class="footer">
@@ -193,19 +244,17 @@
     <div class="footer-links">
       <a href="about.html">산지소개</a>
       <a href="products.html">상품안내</a>
-       
     </div>
     <div class="footer-icons">
-      <a href="#" title="전화"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="전화"></a>
-      <a href="#" title="카카오톡"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111498.png" alt="카카오"></a>
-      <a href="#" title="인스타그램"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="인스타"></a>
+      <a href="#" title="전화"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="전화" style="width: 24px;"></a>
+      <a href="#" title="카카오톡"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111498.png" alt="카카오" style="width: 24px;"></a>
+      <a href="#" title="인스타그램"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="인스타" style="width: 24px;"></a>
     </div>
   </div>
   <div class="footer-copy">
     <p>© 2026 GWAWONGA All rights reserved.</p>
   </div>
 </footer>
-
 
 <script type="module" src="js/products.js"></script>
 <script src="js/script.js"></script>
