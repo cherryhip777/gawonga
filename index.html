@@ -7,7 +7,7 @@
 <link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 
-<!-- ✅ 모바일 레이아웃 깨짐 및 가로 스크롤 강제 방지 코드 추가 -->
+<!-- ✅ 모바일 최적화 CSS (수정 버전) -->
 <style>
   /* 1. 기본 가로 스크롤 원천 차단 */
   html, body {
@@ -26,47 +26,121 @@
     height: auto;
   }
 
-  /* 3. 모바일(스마트폰) 화면일 때 강제 정렬 */
+  /* 3. 모바일(스마트폰) 화면일 때 */
   @media screen and (max-width: 768px) {
-    /* 텍스트 줄바꿈 자연스럽게 처리 */
+    /* ✅ 텍스트 줄바꿈을 자연스럽게 (글자 단위 방지) */
     * {
-      word-break: keep-all; 
-      overflow-wrap: break-word;
+      word-break: normal !important;
+      overflow-wrap: normal !important;
+      word-wrap: normal !important;
     }
 
-    /* 양옆 여백 고정 */
+    /* ✅ 양옆 여백 고정 */
     .container {
       width: 100% !important;
       padding-left: 20px !important;
       padding-right: 20px !important;
     }
 
-    /* 가로로 나열된 카드들을 세로로 변경 */
-    .trust-grid, .process-grid {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 20px !important;
+    /* ✅ Trust Grid - 2x2 그리드로 변경 (가로로 길게 안 늘어지게) */
+    .trust-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important; /* 2열로 변경 */
+      gap: 15px !important;
+      flex-direction: unset !important;
+    }
+    
+    .trust-card {
+      width: 100% !important;
+      text-align: center;
+      padding: 15px 10px;
+    }
+    
+    .trust-num {
+      font-size: 1.8rem !important;
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .trust-label {
+      font-size: 0.9rem !important;
+      line-height: 1.4;
     }
 
-    /* 물류 섹션과 푸터도 세로로 정렬 */
-    .logistics-flex, .footer-inner {
+    /* ✅ Process Grid - 세로로 쌓되 너비 100% */
+    .process-grid {
+      display: flex !important;
+      flex-direction: column !important; /* 세로로 쌓기 */
+      gap: 20px !important;
+    }
+    
+    .process-card {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 20px !important;
+      box-sizing: border-box !important;
+    }
+    
+    .process-card h3 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .process-card p {
+      line-height: 1.6;
+    }
+
+    /* ✅ 히어로 버튼 세로로 정렬 */
+    .hero-btns {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px !important;
+    }
+    
+    .hero-btns a {
+      width: 100% !important;
+      text-align: center;
+    }
+
+    /* ✅ 물류 섹션 세로 정렬 */
+    .logistics-flex {
       display: flex !important;
       flex-direction: column !important;
       gap: 30px !important;
-      align-items: flex-start !important;
+    }
+    
+    .logistics-img {
+      width: 100% !important;
+    }
+    
+    .logistics-text {
+      width: 100% !important;
     }
 
-    /* 가격표는 표만 따로 스크롤되게 설정 (화면 전체 스크롤 방지) */
+    /* ✅ 푸터 세로 정렬 */
+    .footer-inner {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 25px !important;
+      align-items: flex-start !important;
+    }
+    
+    .footer-icons {
+      margin-top: 10px;
+    }
+
+    /* ✅ 가격표는 좌우 스크롤 허용 (표만) */
     .price-table {
       overflow-x: auto !important;
       display: block;
       width: 100%;
       white-space: nowrap;
+      font-size: 0.9rem;
     }
-
-    /* 모바일에서 텍스트 크기 최적화 */
-    .hero-title {
-      font-size: 2.2rem !important;
+    
+    .price-row {
+      display: flex !important;
+      min-width: 500px; /* 표 최소 너비 유지 */
     }
   }
 </style>
