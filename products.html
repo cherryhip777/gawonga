@@ -38,7 +38,6 @@
     box-shadow: 0 16px 40px rgba(0,0,0,0.12);
   }
 
-  /* 이미지 영역 - 정사각형 비율 */
   .product-img-wrap {
     position: relative;
     width: 100%;
@@ -59,7 +58,6 @@
     transform: scale(1.08);
   }
 
-  /* 뱃지 */
   .card-badge {
     position: absolute;
     top: 14px;
@@ -71,19 +69,9 @@
     z-index: 2;
   }
 
-  .badge-season {
-    left: 14px;
-    background: #2d6a4f;
-    color: #fff;
-  }
+  .badge-season { left: 14px; background: #2d6a4f; color: #fff; }
+  .badge-soldout { right: 14px; background: rgba(0,0,0,0.78); color: #fff; }
 
-  .badge-soldout {
-    right: 14px;
-    background: rgba(0,0,0,0.78);
-    color: #fff;
-  }
-
-  /* 이미지 확대 아이콘 (호버 시 표시) */
   .zoom-icon {
     position: absolute;
     right: 14px;
@@ -103,7 +91,6 @@
 
   .product-card:hover .zoom-icon { opacity: 1; }
 
-  /* 상품 정보 */
   .product-content {
     padding: 20px 22px 22px;
     display: flex;
@@ -120,10 +107,7 @@
     word-break: keep-all;
   }
 
-  .product-origin {
-    font-size: 0.85rem;
-    color: #888;
-  }
+  .product-origin { font-size: 0.85rem; color: #888; }
 
   .product-price {
     margin-top: 8px;
@@ -149,12 +133,9 @@
     color: #999;
   }
 
-  .product-meta span:first-child {
-    color: #2d6a4f;
-    font-weight: 600;
-  }
+  .product-meta span:first-child { color: #2d6a4f; font-weight: 600; }
 
-  /* ============ 라이트박스 (이미지 확대) ============ */
+  /* ============ 라이트박스 ============ */
   .lightbox {
     display: none;
     position: fixed;
@@ -175,7 +156,6 @@
     max-height: 90vh;
     object-fit: contain;
     border-radius: 8px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     animation: zoomIn 0.3s ease;
   }
 
@@ -194,30 +174,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s;
   }
-
-  .lightbox-close:hover { background: rgba(255,255,255,0.3); }
 
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
   /* ============ 페이지 타이틀 ============ */
-  .page-title {
-    padding: 60px 0 30px;
-    text-align: center;
-  }
-
-  .page-title h1 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    margin-bottom: 8px;
-  }
-
-  .page-title p {
-    color: #888;
-    font-size: 0.95rem;
-  }
+  .page-title { padding: 60px 0 30px; text-align: center; }
+  .page-title h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; }
+  .page-title p { color: #888; font-size: 0.95rem; }
 
   /* 필터 탭 */
   .filter-tabs {
@@ -240,40 +205,109 @@
   }
 
   .tab-btn:hover { border-color: #2d6a4f; color: #2d6a4f; }
+  .tab-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
 
-  .tab-btn.active {
-    background: #1a1a1a;
-    color: #fff;
-    border-color: #1a1a1a;
-  }
-
-  /* 주문 안내 박스 */
   .order-info-box {
     background: #f8f8f5;
     padding: 30px;
     border-radius: 16px;
   }
 
-  .order-info-box h3 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 14px;
+  .order-info-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 14px; }
+  .order-info-box ul { list-style: none; padding: 0; margin: 0; }
+  .order-info-box li { padding: 8px 0; color: #555; font-size: 0.95rem; }
+
+  /* ✅ 슬라이드 안내 문구 (모바일 전용) */
+  .swipe-hint {
+    display: none;
+    text-align: center;
+    color: #999;
+    font-size: 0.85rem;
+    padding: 12px 0 4px;
+    animation: swipeMove 1.8s ease-in-out infinite;
   }
 
-  .order-info-box ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .order-info-box li {
-    padding: 8px 0;
+  .swipe-hint span {
+    display: inline-block;
+    background: #f0f0ea;
+    padding: 8px 18px;
+    border-radius: 20px;
     color: #555;
-    font-size: 0.95rem;
   }
 
-  /* ============ 모바일 (768px 이하) - 슬라이드 형태 ============ */
+  @keyframes swipeMove {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+  }
+
+  /* ============ 햄버거 메뉴 (기본 숨김, 모바일에서만 보임) ============ */
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+    position: relative;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: #1a1a1a;
+    margin: 6px 0;
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+
+  .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; }
+  .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  .menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+  }
+
+  .menu-overlay.active { display: block; }
+
+  /* ============ 모바일 (768px 이하) ============ */
   @media screen and (max-width: 768px) {
+
+    /* ✅ 햄버거 메뉴 보이기 */
+    .menu-toggle { display: block !important; }
+
+    /* PC 메뉴 숨기고 모바일 슬라이드 메뉴로 */
+    .nav-links {
+      position: fixed !important;
+      top: 0;
+      right: -280px;
+      width: 280px;
+      height: 100vh;
+      background: #fff;
+      flex-direction: column !important;
+      padding: 80px 30px 30px !important;
+      gap: 24px !important;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      z-index: 1000;
+      display: flex !important;
+    }
+
+    .nav-links.active { right: 0; }
+
+    .nav-links a {
+      font-size: 1.05rem;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      color: #1a1a1a;
+    }
+
+    /* 상품 그리드 → 슬라이드 */
     .product-full-grid {
       display: flex !important;
       overflow-x: auto;
@@ -297,12 +331,15 @@
     .product-title { font-size: 1rem; }
     .product-origin { font-size: 0.8rem; }
 
-    .zoom-icon { opacity: 1; }  /* 모바일은 항상 표시 */
+    .zoom-icon { opacity: 1; }
 
     .filter-tabs { padding: 10px 0; }
     .tab-btn { padding: 8px 18px; font-size: 0.85rem; }
 
     .order-info-box { padding: 22px; }
+
+    /* ✅ 모바일에서만 슬라이드 안내 표시 */
+    .swipe-hint { display: block; }
   }
 
   @media screen and (max-width: 400px) {
@@ -317,16 +354,15 @@
     <a href="index.html" class="logo">
       <img src="assets/images/logo.png" alt="과원가 로고">
     </a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="navLinks">
       <a href="products.html?tab=all">올시즌</a>
       <a href="products.html?tab=season">계절과일</a>
       <a href="products.html?tab=soldout">Sold Out</a>
       <a href="about.html">산지소개</a>
       <a href="apply.html">사업자 승인 신청</a>
     </nav>
-    <div class="nav-right"></div>
     <div class="menu-overlay" id="menuOverlay"></div>
-    <button class="menu-toggle" id="menuToggle">
+    <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
       <span></span>
       <span></span>
       <span></span>
@@ -353,8 +389,13 @@
   </div>
 </section>
 
+<!-- ✅ 슬라이드 안내 문구 -->
+<div class="container">
+  <p class="swipe-hint"><span>👉 옆으로 넘겨보세요</span></p>
+</div>
+
 <!-- 상품 그리드 -->
-<section style="padding:40px 0 60px;">
+<section style="padding:20px 0 60px;">
   <div class="container">
     <div class="product-full-grid" id="productGrid"></div>
   </div>
@@ -375,7 +416,7 @@
   </div>
 </section>
 
-<!-- ✅ 라이트박스 (이미지 확대 팝업) -->
+<!-- 라이트박스 -->
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" id="lightboxClose">✕</button>
   <img id="lightboxImg" src="" alt="">
@@ -407,71 +448,35 @@
   </div>
 </footer>
 
-<script src="js/script.js"></script>
-
 <script>
-/* ✅ 상품 데이터 (id 추가 - 상세페이지 연결용) */
+/* ✅ 햄버거 메뉴 */
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+const menuOverlay = document.getElementById("menuOverlay");
+
+if (menuToggle) {
+  menuToggle.addEventListener("click", () => {
+    menuToggle.classList.toggle("active");
+    navLinks.classList.toggle("active");
+    menuOverlay.classList.toggle("active");
+  });
+}
+
+if (menuOverlay) {
+  menuOverlay.addEventListener("click", () => {
+    menuToggle.classList.remove("active");
+    navLinks.classList.remove("active");
+    menuOverlay.classList.remove("active");
+  });
+}
+
+/* ✅ 상품 데이터 */
 const products = [
-  {
-    id: 0,
-    name: "프리미엄 복숭아",
-    price: 45000,
-    spec: "10kg",
-    origin: "충남 예산",
-    stock: 120,
-    min: 2,
-    season: true,
-    soldout: false,
-    image: "assets/images/3q.png"
-  },
-  {
-    id: 1,
-    name: "고당도 수박",
-    price: 12000,
-    spec: "특 1통",
-    origin: "전남 해남",
-    stock: 80,
-    min: 5,
-    season: true,
-    soldout: false,
-    image: "assets/images/1q.png"
-  },
-  {
-    id: 2,
-    name: "꿀 참외",
-    price: 28000,
-    spec: "5kg",
-    origin: "경남 밀양",
-    stock: 60,
-    min: 3,
-    season: true,
-    soldout: false,
-    image: "assets/images/2q.png"
-  },
-  {
-    id: 3,
-    name: "청포도",
-    price: 55000,
-    spec: "5kg",
-    origin: "충북 제천",
-    stock: 30,
-    min: 3,
-    season: false,
-    soldout: false,
-    image: "assets/images/4q.png"
-  },
-  {
-    id: 4,
-    name: "살구",
-    price: 25000,
-    spec: "5kg",
-    origin: "경남 밀양",
-    stock: 15,
-    min: 3,
-    season: true,
-    soldout: false,
-    image: "assets/images/5q.png"
-  }
+  { id: 0, name: "프리미엄 복숭아", price: 45000, spec: "10kg", origin: "충남 예산", stock: 120, min: 2, season: true, soldout: false, image: "assets/images/3q.png" },
+  { id: 1, name: "고당도 수박", price: 12000, spec: "특 1통", origin: "전남 해남", stock: 80, min: 5, season: true, soldout: false, image: "assets/images/1q.png" },
+  { id: 2, name: "꿀 참외", price: 28000, spec: "5kg", origin: "경남 밀양", stock: 60, min: 3, season: true, soldout: false, image: "assets/images/2q.png" },
+  { id: 3, name: "청포도", price: 55000, spec: "5kg", origin: "충북 제천", stock: 30, min: 3, season: false, soldout: false, image: "assets/images/4q.png" },
+  { id: 4, name: "살구", price: 25000, spec: "5kg", origin: "경남 밀양", stock: 15, min: 3, season: true, soldout: false, image: "assets/images/5q.png" }
 ];
 
 const isBizApproved = localStorage.getItem("bizApproved") === "true";
@@ -481,30 +486,20 @@ const tabBtns = document.querySelectorAll(".tab-btn");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 const lightboxClose = document.getElementById("lightboxClose");
+const swipeHint = document.querySelector(".swipe-hint");
 
-/* ✅ 상품 렌더링 */
 function renderProducts(tab) {
   let filtered = [];
 
-  if (tab === "all") {
-    filtered = products.filter(p => !p.soldout);
-    pageTitle.textContent = "올시즌 상품";
-  }
-  if (tab === "season") {
-    filtered = products.filter(p => p.season && !p.soldout);
-    pageTitle.textContent = "계절과일";
-  }
-  if (tab === "soldout") {
-    filtered = products.filter(p => p.soldout);
-    pageTitle.textContent = "Sold Out";
-  }
+  if (tab === "all") { filtered = products.filter(p => !p.soldout); pageTitle.textContent = "올시즌 상품"; }
+  if (tab === "season") { filtered = products.filter(p => p.season && !p.soldout); pageTitle.textContent = "계절과일"; }
+  if (tab === "soldout") { filtered = products.filter(p => p.soldout); pageTitle.textContent = "Sold Out"; }
 
-  tabBtns.forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.tab === tab);
-  });
+  tabBtns.forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
 
   if (!filtered.length) {
     grid.innerHTML = `<div style="padding:80px 0;text-align:center;color:#999;grid-column:1/-1;">상품이 없습니다.</div>`;
+    if (swipeHint) swipeHint.style.display = "none";
     return;
   }
 
@@ -536,19 +531,15 @@ function renderProducts(tab) {
   attachCardEvents();
 }
 
-/* ✅ 카드 클릭 → 상세 이동 / 이미지 아이콘 클릭 → 확대 */
 function attachCardEvents() {
   document.querySelectorAll(".product-card").forEach(card => {
     const id = card.dataset.id;
 
-    // 카드 전체 클릭 → 상세 이동
     card.addEventListener("click", (e) => {
-      // 확대 아이콘 눌렀을 땐 이동 X
       if (e.target.classList.contains("zoom-icon")) return;
       location.href = `product-detail.html?id=${id}`;
     });
 
-    // 확대 아이콘 클릭 → 라이트박스
     const zoomIcon = card.querySelector(".zoom-icon");
     if (zoomIcon) {
       zoomIcon.addEventListener("click", (e) => {
@@ -557,11 +548,9 @@ function attachCardEvents() {
       });
     }
 
-    // 이미지 자체 클릭도 확대
     const img = card.querySelector(".product-img-wrap img");
     if (img) {
       img.addEventListener("click", (e) => {
-        // PC에서만 확대 (모바일은 상세로)
         if (window.innerWidth > 768) {
           e.stopPropagation();
           openLightbox(img.src);
@@ -571,7 +560,6 @@ function attachCardEvents() {
   });
 }
 
-/* ✅ 라이트박스 열기/닫기 */
 function openLightbox(src) {
   lightboxImg.src = src;
   lightbox.classList.add("active");
@@ -585,11 +573,8 @@ function closeLightbox() {
 
 lightbox.addEventListener("click", closeLightbox);
 lightboxClose.addEventListener("click", closeLightbox);
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeLightbox();
-});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
 
-/* ✅ 탭 이벤트 */
 tabBtns.forEach(btn => {
   btn.onclick = () => {
     const tab = btn.dataset.tab;
@@ -598,7 +583,6 @@ tabBtns.forEach(btn => {
   };
 });
 
-/* ✅ 초기 실행 */
 const params = new URLSearchParams(window.location.search);
 renderProducts(params.get("tab") || "all");
 </script>

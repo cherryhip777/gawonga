@@ -38,9 +38,7 @@
     transition: transform 0.5s ease;
   }
 
-  .detail-hero-inner:hover img {
-    transform: scale(1.05);
-  }
+  .detail-hero-inner:hover img { transform: scale(1.05); }
 
   .zoom-hint {
     position: absolute;
@@ -54,7 +52,6 @@
     pointer-events: none;
   }
 
-  /* 콘텐츠 */
   .detail-content {
     max-width: 900px;
     margin: auto;
@@ -68,27 +65,10 @@
     word-break: keep-all;
   }
 
-  .detail-sub {
-    color: #888;
-    margin-bottom: 30px;
-    font-size: 1rem;
-  }
-
-  .detail-section {
-    margin-bottom: 50px;
-  }
-
-  .detail-section h2 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 14px;
-  }
-
-  .detail-section p {
-    color: #555;
-    line-height: 1.7;
-    font-size: 0.95rem;
-  }
+  .detail-sub { color: #888; margin-bottom: 30px; font-size: 1rem; }
+  .detail-section { margin-bottom: 50px; }
+  .detail-section h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 14px; }
+  .detail-section p { color: #555; line-height: 1.7; font-size: 0.95rem; }
 
   .detail-info-box {
     background: #f8f8f5;
@@ -104,11 +84,10 @@
   }
 
   .detail-info-box div:last-child { border-bottom: none; }
-
   .detail-info-box span { color: #888; }
   .detail-info-box strong { color: #1a1a1a; font-weight: 700; }
 
-  /* 하단 고정 구매바 */
+  /* 하단 고정 구매바 (PC 전용) */
   .purchase-bar {
     position: fixed;
     bottom: 0;
@@ -136,10 +115,7 @@
     color: #2d6a4f;
   }
 
-  .purchase-actions {
-    display: flex;
-    gap: 10px;
-  }
+  .purchase-actions { display: flex; gap: 10px; }
 
   .purchase-actions button {
     padding: 14px 28px;
@@ -158,12 +134,7 @@
   }
 
   .btn-outline:hover { background: #1a1a1a; color: #fff; }
-
-  .btn-primary {
-    background: #2d6a4f;
-    color: #fff;
-  }
-
+  .btn-primary { background: #2d6a4f; color: #fff; }
   .btn-primary:hover { background: #1b4332; }
 
   /* 라이트박스 */
@@ -207,22 +178,80 @@
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-  /* 모바일 */
+  /* ============ 햄버거 메뉴 ============ */
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+    position: relative;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: #1a1a1a;
+    margin: 6px 0;
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+
+  .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; }
+  .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  .menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+  }
+
+  .menu-overlay.active { display: block; }
+
+  /* ============ 모바일 (768px 이하) ============ */
   @media (max-width: 768px) {
     .detail-hero { padding: 0 16px; margin-top: 24px; }
-    .detail-content { padding: 30px 20px 180px; }
+    /* ✅ 하단 바 없으니 padding-bottom 줄임 */
+    .detail-content { padding: 30px 20px 60px; }
     .detail-title { font-size: 1.6rem; }
     .detail-section h2 { font-size: 1.1rem; }
+    .zoom-hint { display: none; }
 
-    .purchase-inner {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 12px;
+    /* ✅ 모바일에서 하단 구매바 완전히 숨김 */
+    .purchase-bar { display: none !important; }
+
+    /* 햄버거 메뉴 */
+    .menu-toggle { display: block !important; }
+
+    .nav-links {
+      position: fixed !important;
+      top: 0;
+      right: -280px;
+      width: 280px;
+      height: 100vh;
+      background: #fff;
+      flex-direction: column !important;
+      padding: 80px 30px 30px !important;
+      gap: 24px !important;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      z-index: 1000;
+      display: flex !important;
     }
 
-    .purchase-actions { width: 100%; }
-    .purchase-actions button { flex: 1; padding: 12px; }
-    .zoom-hint { display: none; }
+    .nav-links.active { right: 0; }
+
+    .nav-links a {
+      font-size: 1.05rem;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      color: #1a1a1a;
+    }
   }
 </style>
 
@@ -234,16 +263,23 @@
     <a href="index.html" class="logo">
       <img src="assets/images/logo.png" alt="과원가 로고">
     </a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="navLinks">
       <a href="products.html?tab=all">올시즌</a>
       <a href="products.html?tab=season">계절과일</a>
+      <a href="products.html?tab=soldout">Sold Out</a>
       <a href="about.html">산지소개</a>
       <a href="apply.html">사업자 승인 신청</a>
     </nav>
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
 
-<!-- ✅ 상단 이미지 -->
+<!-- 상단 이미지 -->
 <section class="detail-hero">
   <div class="detail-hero-inner" id="heroImgWrap">
     <img id="detailImage" src="" alt="">
@@ -251,7 +287,7 @@
   </div>
 </section>
 
-<!-- ✅ 상세 콘텐츠 -->
+<!-- 상세 콘텐츠 -->
 <section class="detail-content">
 
   <h1 class="detail-title" id="detailName"></h1>
@@ -287,7 +323,7 @@
 
 </section>
 
-<!-- ✅ 하단 고정 구매바 -->
+<!-- 하단 고정 구매바 (PC만) -->
 <div class="purchase-bar">
   <div class="purchase-inner">
     <div>
@@ -301,65 +337,41 @@
   </div>
 </div>
 
-<!-- ✅ 라이트박스 -->
+<!-- 라이트박스 -->
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" id="lightboxClose">✕</button>
   <img id="lightboxImg" src="" alt="">
 </div>
 
 <script>
-/* ✅ 상품 데이터 (products.html과 반드시 동일하게!) */
+/* ✅ 햄버거 메뉴 */
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+const menuOverlay = document.getElementById("menuOverlay");
+
+if (menuToggle) {
+  menuToggle.addEventListener("click", () => {
+    menuToggle.classList.toggle("active");
+    navLinks.classList.toggle("active");
+    menuOverlay.classList.toggle("active");
+  });
+}
+
+if (menuOverlay) {
+  menuOverlay.addEventListener("click", () => {
+    menuToggle.classList.remove("active");
+    navLinks.classList.remove("active");
+    menuOverlay.classList.remove("active");
+  });
+}
+
+/* ✅ 상품 데이터 */
 const products = [
-  {
-    id: 0,
-    name: "프리미엄 복숭아",
-    origin: "충남 예산",
-    spec: "10kg",
-    stock: "120박스",
-    min: "2박스",
-    price: 45000,
-    image: "assets/images/3q.png"
-  },
-  {
-    id: 1,
-    name: "고당도 수박",
-    origin: "전남 해남",
-    spec: "특 1통",
-    stock: "80박스",
-    min: "5박스",
-    price: 12000,
-    image: "assets/images/1q.png"
-  },
-  {
-    id: 2,
-    name: "꿀 참외",
-    origin: "경남 밀양",
-    spec: "5kg",
-    stock: "60박스",
-    min: "3박스",
-    price: 28000,
-    image: "assets/images/2q.png"
-  },
-  {
-    id: 3,
-    name: "청포도",
-    origin: "충북 제천",
-    spec: "5kg",
-    stock: "30박스",
-    min: "3박스",
-    price: 55000,
-    image: "assets/images/4q.png"
-  },
-  {
-    id: 4,
-    name: "살구",
-    origin: "경남 밀양",
-    spec: "5kg",
-    stock: "15박스",
-    min: "3박스",
-    price: 25000,
-    image: "assets/images/5q.png"
-  }
+  { id: 0, name: "프리미엄 복숭아", origin: "충남 예산", spec: "10kg", stock: "120박스", min: "2박스", price: 45000, image: "assets/images/3q.png" },
+  { id: 1, name: "고당도 수박", origin: "전남 해남", spec: "특 1통", stock: "80박스", min: "5박스", price: 12000, image: "assets/images/1q.png" },
+  { id: 2, name: "꿀 참외", origin: "경남 밀양", spec: "5kg", stock: "60박스", min: "3박스", price: 28000, image: "assets/images/2q.png" },
+  { id: 3, name: "청포도", origin: "충북 제천", spec: "5kg", stock: "30박스", min: "3박스", price: 55000, image: "assets/images/4q.png" },
+  { id: 4, name: "살구", origin: "경남 밀양", spec: "5kg", stock: "15박스", min: "3박스", price: 25000, image: "assets/images/5q.png" }
 ];
 
 const params = new URLSearchParams(location.search);
@@ -382,7 +394,7 @@ if (product) {
     '<p style="text-align:center;padding:80px 0;color:#999;">상품을 찾을 수 없습니다.</p>';
 }
 
-/* ✅ 이미지 클릭 시 라이트박스 확대 */
+/* ✅ 이미지 클릭 시 확대 */
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 const heroImgWrap = document.getElementById("heroImgWrap");
@@ -402,9 +414,7 @@ function closeLightbox() {
 
 lightbox.addEventListener("click", closeLightbox);
 lightboxClose.addEventListener("click", closeLightbox);
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeLightbox();
-});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
 </script>
 
 </body>
