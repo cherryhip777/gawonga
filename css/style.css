@@ -1712,4 +1712,17 @@ input, textarea, select { outline: none; border: 1px solid var(--border); }
 }
 
 
- 
+ /* 모바일 가로 스크롤 방지 */
+* {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+img, video, iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+body, html {
+    overflow-x: hidden;
+}
