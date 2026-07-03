@@ -5,15 +5,360 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>산지 소개 | GWAWONGA</title>
 <link rel="stylesheet" href="css/style.css">
+<link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+
+<style>
+  /* ============ 기본 리셋 ============ */
+  html, body { overflow-x: hidden; max-width: 100vw; }
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* ============ ABOUT HERO ============ */
+  .about-hero {
+    padding: 100px 24px 80px;
+    text-align: center;
+    background: #f8f8f5;
+  }
+
+  .about-hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    word-break: keep-all;
+  }
+
+  .about-hero p {
+    color: #666;
+    font-size: 1.1rem;
+  }
+
+  /* ============ OUR STORY ============ */
+  .about-story {
+    padding: 100px 0;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-img {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: #f8f8f8;
+  }
+
+  .about-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .about-img:hover img {
+    transform: scale(1.05);
+  }
+
+  .about-text .section-tag {
+    display: inline-block;
+    color: #2d6a4f;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .about-text h2 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 24px;
+    word-break: keep-all;
+  }
+
+  .about-text p {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    word-break: keep-all;
+  }
+
+  /* ============ VALUES ============ */
+  .about-values {
+    padding: 100px 0;
+    background: #f8f8f5;
+  }
+
+  .section-head {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    word-break: keep-all;
+  }
+
+  .section-sub {
+    color: #888;
+    font-size: 1rem;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .value-card {
+    background: #fff;
+    padding: 40px 28px;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+
+  .value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+  }
+
+  .value-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .value-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .value-card p {
+    color: #666;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    word-break: keep-all;
+  }
+
+  /* ============ FARMS ============ */
+  .about-farms {
+    padding: 100px 0;
+  }
+
+  .farms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .farm-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .farm-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+  }
+
+  .farm-card img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .farm-card:hover img {
+    transform: scale(1.05);
+  }
+
+  .farm-card h4 {
+    padding: 20px 24px 6px;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .farm-card p {
+    padding: 0 24px 24px;
+    color: #888;
+    font-size: 0.9rem;
+  }
+
+  /* ============ 모바일 (768px 이하) ============ */
+  @media screen and (max-width: 768px) {
+
+    /* ABOUT HERO */
+    .about-hero {
+      padding: 60px 20px 50px;
+    }
+
+    .about-hero h1 {
+      font-size: 2rem;
+      line-height: 1.3;
+    }
+
+    .about-hero p {
+      font-size: 0.95rem;
+    }
+
+    /* OUR STORY - 세로 스택 */
+    .about-story {
+      padding: 60px 0;
+    }
+
+    .about-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 32px !important;
+      align-items: stretch !important;
+    }
+
+    /* ✅ 이미지 - 전체 너비, 세로형 최적화 */
+    .about-img {
+      width: 100% !important;
+      max-width: 100% !important;
+      aspect-ratio: 4/3 !important;
+      max-height: 320px;
+      margin: 0 !important;
+    }
+
+    .about-text {
+      width: 100%;
+      padding: 0 4px;
+    }
+
+    .about-text .section-tag {
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+    }
+
+    .about-text h2 {
+      font-size: 1.7rem !important;
+      line-height: 1.35 !important;
+      margin-bottom: 20px;
+      word-break: keep-all !important;
+    }
+
+    .about-text p {
+      font-size: 0.95rem !important;
+      line-height: 1.75 !important;
+      word-break: keep-all !important;
+    }
+
+    /* VALUES - 2열 그리드 */
+    .about-values {
+      padding: 60px 0;
+    }
+
+    .section-head {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+    }
+
+    .section-sub {
+      font-size: 0.9rem;
+    }
+
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 14px !important;
+    }
+
+    .value-card {
+      padding: 28px 18px !important;
+      border-radius: 16px;
+    }
+
+    .value-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+    }
+
+    .value-card h3 {
+      font-size: 1rem;
+    }
+
+    .value-card p {
+      font-size: 0.85rem;
+    }
+
+    /* FARMS - 세로 슬라이드 */
+    .about-farms {
+      padding: 60px 0;
+    }
+
+    .farms-grid {
+      display: flex !important;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 16px !important;
+      padding: 10px 20px 20px !important;
+      margin: 0 -20px !important;
+      scrollbar-width: none;
+    }
+
+    .farms-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .farm-card {
+      flex: 0 0 78% !important;
+      scroll-snap-align: start;
+      max-width: 320px;
+    }
+
+    .farm-card img {
+      aspect-ratio: 4/3;
+    }
+
+    .farm-card h4 {
+      padding: 18px 20px 6px;
+      font-size: 1.05rem;
+    }
+
+    .farm-card p {
+      padding: 0 20px 20px;
+      font-size: 0.85rem;
+    }
+  }
+
+  /* 아주 작은 화면 */
+  @media screen and (max-width: 400px) {
+    .about-hero h1 { font-size: 1.7rem; }
+    .about-text h2 { font-size: 1.5rem !important; }
+    .section-title { font-size: 1.5rem; }
+    .values-grid { gap: 10px !important; }
+    .value-card { padding: 22px 14px !important; }
+  }
+</style>
 </head>
 <body>
 
 <header class="header">
   <div class="container nav-inner">
 
-   <a href="index.html" class="logo">
-  <img src="assets/images/logo.png" alt="과원가 로고">
-</a>
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo.png" alt="과원가 로고">
+    </a>
 
     <nav class="nav-links">
       <a href="products.html">올시즌</a>
@@ -23,16 +368,9 @@
       <a href="apply.html">사업자 승인 신청</a>
     </nav>
 
-    <!-- ✅ 여기 비워둡니다 -->
-    <div class="nav-right" >
-    </div>
+    <div class="nav-right"></div>
+    <div class="menu-overlay" id="menuOverlay"></div>
 
-  
-  <!-- ✅ 오버레이 -->
-<div class="menu-overlay" id="menuOverlay"></div>
- 
-
-    <!-- ✅ 햄버거 버튼 -->
     <button class="menu-toggle" id="menuToggle">
       <span></span>
       <span></span>
@@ -144,7 +482,6 @@
     <div class="footer-links">
       <a href="about.html">산지소개</a>
       <a href="products.html">상품안내</a>
-       
     </div>
     <div class="footer-icons">
       <a href="#" title="전화"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="전화"></a>
@@ -156,8 +493,6 @@
     <p>© 2026 GWAWONGA All rights reserved.</p>
   </div>
 </footer>
-
-
 
 <script src="js/script.js"></script>
 </body>
