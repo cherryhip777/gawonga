@@ -146,7 +146,6 @@
     justify-content: center;
     padding: 20px;
     cursor: zoom-out;
-    animation: fadeIn 0.25s ease;
   }
 
   .lightbox.active { display: flex; }
@@ -156,7 +155,6 @@
     max-height: 90vh;
     object-fit: contain;
     border-radius: 8px;
-    animation: zoomIn 0.3s ease;
   }
 
   .lightbox-close {
@@ -171,13 +169,7 @@
     color: #fff;
     font-size: 24px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
-
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
   /* ============ 페이지 타이틀 ============ */
   .page-title { padding: 60px 0 30px; text-align: center; }
@@ -217,14 +209,11 @@
   .order-info-box ul { list-style: none; padding: 0; margin: 0; }
   .order-info-box li { padding: 8px 0; color: #555; font-size: 0.95rem; }
 
-  /* ✅ 슬라이드 안내 문구 (모바일 전용) */
+  /* ✅ 슬라이드 안내 문구 */
   .swipe-hint {
     display: none;
     text-align: center;
-    color: #999;
-    font-size: 0.85rem;
     padding: 12px 0 4px;
-    animation: swipeMove 1.8s ease-in-out infinite;
   }
 
   .swipe-hint span {
@@ -233,6 +222,8 @@
     padding: 8px 18px;
     border-radius: 20px;
     color: #555;
+    font-size: 0.85rem;
+    animation: swipeMove 1.8s ease-in-out infinite;
   }
 
   @keyframes swipeMove {
@@ -240,72 +231,8 @@
     50% { transform: translateX(8px); }
   }
 
-  /* ============ 햄버거 메뉴 (기본 숨김, 모바일에서만 보임) ============ */
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    z-index: 1001;
-    position: relative;
-  }
-
-  .menu-toggle span {
-    display: block;
-    width: 26px;
-    height: 2px;
-    background: #1a1a1a;
-    margin: 6px 0;
-    transition: all 0.3s;
-    border-radius: 2px;
-  }
-
-  .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-  .menu-toggle.active span:nth-child(2) { opacity: 0; }
-  .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-  .menu-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    z-index: 999;
-  }
-
-  .menu-overlay.active { display: block; }
-
   /* ============ 모바일 (768px 이하) ============ */
   @media screen and (max-width: 768px) {
-
-    /* ✅ 햄버거 메뉴 보이기 */
-    .menu-toggle { display: block !important; }
-
-    /* PC 메뉴 숨기고 모바일 슬라이드 메뉴로 */
-    .nav-links {
-      position: fixed !important;
-      top: 0;
-      right: -280px;
-      width: 280px;
-      height: 100vh;
-      background: #fff;
-      flex-direction: column !important;
-      padding: 80px 30px 30px !important;
-      gap: 24px !important;
-      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
-      transition: right 0.3s ease;
-      z-index: 1000;
-      display: flex !important;
-    }
-
-    .nav-links.active { right: 0; }
-
-    .nav-links a {
-      font-size: 1.05rem;
-      padding: 10px 0;
-      border-bottom: 1px solid #f0f0f0;
-      color: #1a1a1a;
-    }
 
     /* 상품 그리드 → 슬라이드 */
     .product-full-grid {
@@ -338,7 +265,7 @@
 
     .order-info-box { padding: 22px; }
 
-    /* ✅ 모바일에서만 슬라이드 안내 표시 */
+    /* ✅ 슬라이드 안내 표시 */
     .swipe-hint { display: block; }
   }
 
@@ -354,15 +281,16 @@
     <a href="index.html" class="logo">
       <img src="assets/images/logo.png" alt="과원가 로고">
     </a>
-    <nav class="nav-links" id="navLinks">
+    <nav class="nav-links">
       <a href="products.html?tab=all">올시즌</a>
       <a href="products.html?tab=season">계절과일</a>
       <a href="products.html?tab=soldout">Sold Out</a>
       <a href="about.html">산지소개</a>
       <a href="apply.html">사업자 승인 신청</a>
     </nav>
+    <div class="nav-right"></div>
     <div class="menu-overlay" id="menuOverlay"></div>
-    <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
+    <button class="menu-toggle" id="menuToggle">
       <span></span>
       <span></span>
       <span></span>
@@ -448,28 +376,10 @@
   </div>
 </footer>
 
+<!-- ✅ 원래 햄버거 메뉴 스크립트 사용 -->
+<script src="js/script.js"></script>
+
 <script>
-/* ✅ 햄버거 메뉴 */
-const menuToggle = document.getElementById("menuToggle");
-const navLinks = document.getElementById("navLinks");
-const menuOverlay = document.getElementById("menuOverlay");
-
-if (menuToggle) {
-  menuToggle.addEventListener("click", () => {
-    menuToggle.classList.toggle("active");
-    navLinks.classList.toggle("active");
-    menuOverlay.classList.toggle("active");
-  });
-}
-
-if (menuOverlay) {
-  menuOverlay.addEventListener("click", () => {
-    menuToggle.classList.remove("active");
-    navLinks.classList.remove("active");
-    menuOverlay.classList.remove("active");
-  });
-}
-
 /* ✅ 상품 데이터 */
 const products = [
   { id: 0, name: "프리미엄 복숭아", price: 45000, spec: "10kg", origin: "충남 예산", stock: 120, min: 2, season: true, soldout: false, image: "assets/images/3q.png" },
@@ -588,4 +498,4 @@ renderProducts(params.get("tab") || "all");
 </script>
 
 </body>
-</html> 
+</html>
