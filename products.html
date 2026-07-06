@@ -234,6 +234,19 @@
   /* ============ 모바일 (768px 이하) ============ */
   @media screen and (max-width: 768px) {
 
+ /* ✅ 푸터 세로 정렬 */
+    .footer-inner {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 25px !important;
+      align-items: flex-start !important;
+    }
+    
+    .footer-icons {
+      margin-top: 10px;
+    }
+
+
     /* 상품 그리드 → 슬라이드 */
     .product-full-grid {
       display: flex !important;
